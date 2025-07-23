@@ -1,0 +1,6 @@
+{
+    "max-detection":30,
+    "min-detection":5,
+    "min-confidence":0.5,
+    "max-patterns":10
+}
