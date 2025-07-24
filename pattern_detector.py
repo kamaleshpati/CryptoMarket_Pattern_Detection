@@ -1,5 +1,3 @@
-# pattern_detector.py
-
 import numpy as np
 import pandas as pd
 from scipy.optimize import curve_fit
@@ -69,7 +67,7 @@ def detect_cup_handle_patterns(df: pd.DataFrame) -> list:
                     })
                     continue
 
-                # Volume trend check
+                # Volume trend 
                 vol_slope, *_ = linregress(np.arange(len(volumes[cup_start:cup_end])), volumes[cup_start:cup_end])
                 if vol_slope > 0:
                     results.append({
@@ -142,7 +140,6 @@ def detect_cup_handle_patterns(df: pd.DataFrame) -> list:
                     })
                     continue
 
-                # If all checks pass: VALID
                 results.append({
                     "start_time": df.index[cup_start],
                     "end_time": df.index[i],

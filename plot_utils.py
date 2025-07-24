@@ -14,10 +14,8 @@ def plot_and_save_pattern(df, pattern, save_path):
     df_pattern = df.loc[start:end].copy()
     df_pattern.reset_index(inplace=True)
 
-    # 1. Create figure
     fig = go.Figure()
 
-    # 2. Price line
     fig.add_trace(go.Scatter(
         x=df_pattern['timestamp'],
         y=df_pattern['close'],
@@ -26,7 +24,6 @@ def plot_and_save_pattern(df, pattern, save_path):
         line=dict(color='gray')
     ))
 
-    # 3. Fit cup parabola and overlay
     cup_len = pattern["cup_duration"]
     cup_df = df_pattern.iloc[:cup_len]
     x = np.arange(len(cup_df))
@@ -46,7 +43,6 @@ def plot_and_save_pattern(df, pattern, save_path):
         line=dict(color='purple', width=2, dash='dash')
     ))
 
-    # 4. Handle region (blue highlight)
     handle_start = cup_len
     handle_end = cup_len + pattern["handle_duration"]
     handle_df = df_pattern.iloc[handle_start:handle_end]
@@ -59,7 +55,6 @@ def plot_and_save_pattern(df, pattern, save_path):
         line=dict(color='blue', width=2)
     ))
 
-    # 5. Breakout candle
     breakout_time = pattern["breakout_time"]
     breakout_price = df.loc[breakout_time]['close']
 
@@ -73,7 +68,6 @@ def plot_and_save_pattern(df, pattern, save_path):
         textposition="top center"
     ))
 
-    # 6. Layout
     fig.update_layout(
         title=f"Cup & Handle Pattern: {start.strftime('%Y-%m-%d %H:%M')} → {end.strftime('%Y-%m-%d %H:%M')}",
         xaxis_title="Time",
@@ -84,7 +78,6 @@ def plot_and_save_pattern(df, pattern, save_path):
         height=500
     )
 
-    # 7. Save
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     fig.write_image(save_path, engine="kaleido")
 

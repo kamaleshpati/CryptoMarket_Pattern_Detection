@@ -14,7 +14,6 @@ def merge_binance_csv(input_folder, output_file):
 
     for file in all_files:
         try:
-            # Read first line to check for header
             with open(file, 'r') as f:
                 first_line = f.readline()
             if 'open_time' in first_line.lower():
@@ -23,7 +22,6 @@ def merge_binance_csv(input_folder, output_file):
                 df = pd.read_csv(file, header=None)
                 df.columns = columns
 
-            # Standardize column names just in case
             df.columns = columns
             df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
             data_frames.append(df)

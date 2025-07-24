@@ -1,14 +1,10 @@
-# dashboard_generator.py
-
 import pandas as pd
 import plotly.graph_objects as go
 
 def generate_pattern_dashboard(data_path, patterns_path, output_path):
-    # Load OHLCV data
     df = pd.read_csv(data_path, parse_dates=["timestamp"])
     df.set_index("timestamp", inplace=True)
 
-    # Downsample to 5-minute OHLCV
     df_resampled = df.resample("5T").agg({
         "open": "first",
         "high": "max",
@@ -17,13 +13,10 @@ def generate_pattern_dashboard(data_path, patterns_path, output_path):
         "volume": "sum"
     }).dropna()
 
-    # Load pattern summary
     patterns = pd.read_csv(patterns_path, parse_dates=["start_time", "end_time"])
 
-    # Start plot
     fig = go.Figure()
 
-    # Candlestick trace
     fig.add_trace(go.Candlestick(
         x=df_resampled.index,
         open=df_resampled['open'],
@@ -33,7 +26,6 @@ def generate_pattern_dashboard(data_path, patterns_path, output_path):
         name="Price"
     ))
 
-    # Overlay valid pattern ranges
     for i, row in patterns.iterrows():
         if not row['valid']:
             continue
@@ -45,7 +37,6 @@ def generate_pattern_dashboard(data_path, patterns_path, output_path):
             annotation_text=f"Pattern {i+1}", annotation_position="top left"
         )
 
-    # Layout
     fig.update_layout(
         title="Cup and Handle Patterns (5-Min Chart)",
         xaxis_title="Time",
