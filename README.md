@@ -208,7 +208,6 @@ from config.config_loader import RAW_DATA_PATH, MODEL_PATH, ...
 * Misssing test config for different env for Unit-test(tests/test_pipeline.py) and Integration Test(tests/test_ml_integration.py) to cover pipeline
 
 
-```
 ## 🙋‍♂️ Author
 **Kamalesh Pati**
 
