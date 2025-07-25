@@ -41,7 +41,7 @@ Outputs:
 
 * `report_rule.csv`: Rule-only patterns
 * `report_ml.csv`: ML-enhanced patterns
-* `.png` charts in `data/market-data/processed/pattern-charts/`
+* `.png` charts in `data/market-data/patterns/media/`
 
 ### Screenshot
 ![Pattern Screenshot](assets/cup_handle_1.png)
@@ -50,12 +50,12 @@ Outputs:
 
 | Path                                                               | Description                                                                                                                           |
 | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `data/market-data/processed/doc/report_rule.csv`                   | ✅ Contains **rule-based detected patterns**. Each row has start/end timestamps, depth, duration, r², and invalidation reason if any.  |
-| `data/market-data/processed/doc/report_ml.csv`                     | ✅ Contains **ML-enhanced pattern analysis**. Same as above but includes `ml_confidence` and `ml_valid` fields.                        |
-| `data/market-data/processed/doc/pattern_features_for_labeling.csv` | 🧠 Extracted features for each detected pattern, used for ML training. Also includes auto-generated label (0 or 1).                   |
+| `data/market-data/patterns/doc/report_rule.csv`                   | ✅ Contains **rule-based detected patterns**. Each row has start/end timestamps, depth, duration, r², and invalidation reason if any.  |
+| `data/market-data/patterns/doc/report_ml.csv`                     | ✅ Contains **ML-enhanced pattern analysis**. Same as above but includes `ml_confidence` and `ml_valid` fields.                        |
+| `data/market-data/patterns/doc/pattern_features_for_labeling.csv` | 🧠 Extracted features for each detected pattern, used for ML training. Also includes auto-generated label (0 or 1).                   |
 | `data/market-data/model/pattern_sgd_model.pkl`                     | 🤖 Trained ML model bundle, including the `SGDClassifier` and its `StandardScaler`. Loaded or updated each time you run the pipeline. |
-| `data/market-data/processed/pattern-charts/cup_handle_*.png`       | 📉 PNG charts of **rule-based valid patterns** (named `cup_handle_1.png`, `cup_handle_2.png`, etc.).                                  |
-| `data/market-data/processed/pattern-charts/ml_cup_handle_*.png`    | 📈 PNG charts of **ML-validated patterns** only, with high confidence. (named `ml_cup_handle_1.png`, etc.)                            |
+| `data/market-data/patterns/media/cup_handle_*.png`       | 📉 PNG charts of **rule-based valid patterns** (named `cup_handle_1.png`, `cup_handle_2.png`, etc.).                                  |
+| `data/market-data/patterns/media/ml_cup_handle_*.png`    | 📈 PNG charts of **ML-validated patterns** only, with high confidence. (named `ml_cup_handle_1.png`, etc.)                            |
 
 
 ### 3️⃣ Launch Interactive Dashboard
