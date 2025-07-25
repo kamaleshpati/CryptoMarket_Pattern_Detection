@@ -8,8 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, accuracy_score, roc_auc_score
 from sklearn.model_selection import train_test_split
 
-FEATURE_PATH = "data/market-data/processed/doc/pattern_features_for_labeling.csv"
-MODEL_PATH = "data/market-data/model/pattern_sgd_model.pkl"
+from config import MODEL_PATH, FEATURE_PATH
 
 def train_incremental():
     print("📂 Loading labeled feature data...")

@@ -5,12 +5,8 @@ import plotly.graph_objs as go
 from datetime import datetime, timedelta
 import os
 
-# === Paths ===
-DATA_PATH = "data/market-data/raw/binance_1m.csv"
-RULE_REPORT_PATH = "data/market-data/processed/doc/report_rule.csv"
-ML_REPORT_PATH = "data/market-data/processed/doc/report_ml.csv"
+from config import DATA_PATH, RULE_REPORT_PATH, ML_REPORT_PATH
 
-# === Load Main Price Data ===
 if not os.path.exists(DATA_PATH):
     raise FileNotFoundError(f"❌ Raw data file not found: {DATA_PATH}")
 

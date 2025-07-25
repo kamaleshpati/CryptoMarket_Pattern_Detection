@@ -1,12 +1,12 @@
 import pandas as pd
-from detectors.pattern_detector import detect_cup_handle_patterns
-from ml.ml_feature_extractor import extract_features
+from .pattern_detector import detect_cup_handle_patterns
+from ml import extract_features
 import joblib
 import os
 
-MODEL_PATH = "data/market-data/model/pattern_sgd_model.pkl"
+from config import MODEL_PATH, CONFIDENCE_THRESHOLD
 
-def detect_patterns_with_ml(df, confidence_threshold=0.75):
+def detect_patterns_with_ml(df, confidence_threshold=CONFIDENCE_THRESHOLD):
     patterns = detect_cup_handle_patterns(df)
 
     if not patterns:

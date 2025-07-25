@@ -2,15 +2,13 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from detectors.pattern_detector import detect_cup_handle_patterns
+from detectors import detect_cup_handle_patterns
 
 import pandas as pd
-from ml.ml_feature_extractor import extract_features
+from ml import extract_features
 import joblib
-import os
 
-MODEL_PATH = "data/market-data/model/pattern_sgd_model.pkl"
-RAW_DATA_PATH = "data/market-data/raw/binance_1m.csv"
+from config import RAW_DATA_PATH, MODEL_PATH
 
 def test_model_predictions_above_zero():
     df = pd.read_csv(RAW_DATA_PATH, parse_dates=["timestamp"])

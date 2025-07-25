@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy.stats import linregress
-from detectors.pattern_detector import fit_parabola
+from utils import fit_parabola
 
 def extract_features(patterns, df):
     feature_rows = []

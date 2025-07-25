@@ -2,20 +2,14 @@ import os
 import pandas as pd
 import joblib
 
-from detectors.pattern_detector import detect_cup_handle_patterns_loose
-from ml.ml_feature_extractor import extract_features
-from ml.train_model import train_incremental  
-from visual_utils.plot_utils import plot_and_save_pattern
+from detectors import detect_cup_handle_patterns_loose
+from ml import extract_features, train_incremental
+from utils import plot_and_save_pattern
 # from app import run_server 
-
-RAW_DATA_PATH = "data/market-data/raw/binance_1m.csv"
-OUTPUT_DIR = "data/market-data/processed/media"
-FEATURE_PATH = "data/market-data/processed/doc/pattern_features_for_labeling.csv"
-REPORT_RULE_PATH = "data/market-data/processed/doc/report_rule.csv"
-REPORT_ML_PATH = "data/market-data/processed/doc/report_ml.csv"
-MODEL_PATH = "data/market-data/model/pattern_sgd_model.pkl"
-CONFIDENCE_THRESHOLD = 0.5
-MIN_VALID_PATTERNS = 30
+from config import (
+    RAW_DATA_PATH, OUTPUT_DIR, FEATURE_PATH, RULE_REPORT_PATH,
+    ML_REPORT_PATH, MODEL_PATH, CONFIDENCE_THRESHOLD, MIN_VALID_PATTERNS
+)
 
 def auto_label(row, df):
     try:
@@ -97,14 +91,14 @@ def main():
         pattern["ml_valid"] = bool(confidence >= CONFIDENCE_THRESHOLD)
 
     # Step 7: Save Rule-Based Report
-    os.makedirs(os.path.dirname(REPORT_RULE_PATH), exist_ok=True)
-    pd.DataFrame(patterns).to_csv(REPORT_RULE_PATH, index=False)
-    print(f"📄 Rule-based report saved: {REPORT_RULE_PATH}")
+    os.makedirs(os.path.dirname(RULE_REPORT_PATH), exist_ok=True)
+    pd.DataFrame(patterns).to_csv(RULE_REPORT_PATH, index=False)
+    print(f"📄 Rule-based report saved: {RULE_REPORT_PATH}")
 
     # Step 8: Save ML-Enhanced Report
-    os.makedirs(os.path.dirname(REPORT_ML_PATH), exist_ok=True)
-    pd.DataFrame(patterns).to_csv(REPORT_ML_PATH, index=False)
-    print(f"📄 ML-enhanced report saved: {REPORT_ML_PATH}")
+    os.makedirs(os.path.dirname(ML_REPORT_PATH), exist_ok=True)
+    pd.DataFrame(patterns).to_csv(ML_REPORT_PATH, index=False)
+    print(f"📄 ML-enhanced report saved: {ML_REPORT_PATH}")
 
     # Step 9: Plot ML-Valid and Valid Patterns Only
     ml_patterns = [p for p in patterns if p.get("ml_valid")]

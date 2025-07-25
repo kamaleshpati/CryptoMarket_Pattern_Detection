@@ -4,13 +4,12 @@ import numpy as np
 import joblib
 from datetime import timedelta
 
-from detectors.pattern_detector import detect_cup_handle_patterns
-from ml.ml_feature_extractor import extract_features
+from detectors import detect_cup_handle_patterns
+from .ml_feature_extractor import extract_features
 from sklearn.linear_model import SGDClassifier
 from sklearn.preprocessing import StandardScaler
 
-MODEL_PATH = "data/market-data/model/pattern_sgd_model.pkl"
-RAW_DATA_PATH = "data/market-data/raw/binance_1m.csv"
+from config import MODEL_PATH, RAW_DATA_PATH
 
 # --- Auto-label function ---
 def auto_label(row, df):
