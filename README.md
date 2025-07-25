@@ -65,6 +65,8 @@ python app.py
 * 🟥 Red overlays: Rule-based patterns
 * 🟩 Green overlays: ML-validated patterns
 
+### Dashboard
+![Dashboard Screenshot](assets/dashboard.png)
 ---
 
 ## 🧠 Machine Learning Details
@@ -203,7 +205,11 @@ from config.config_loader import RAW_DATA_PATH, MODEL_PATH, ...
 
 * Missing Evaluation Metrics: No cross-validation or metrics tracking (AUC, F1). Add for better model health visibility.
 
+* Misssing test config for different env for Unit-test(tests/test_pipeline.py) and Integration Test(tests/test_ml_integration.py) to cover pipeline
+
 
 ```
-Built By KAMALESH PATI
+## 🙋‍♂️ Author
+**Kamalesh Pati**
+
 ```

@@ -79,14 +79,18 @@ def test_prediction_probabilities_range():
     df = load_df_first_n_days()
     patterns = detect_cup_handle_patterns_loose(df)
     features_df = extract_features(patterns, df)
+    model_bundle, scaler = None, None
 
     if features_df.empty:
         print("⚠️ No features extracted. Skipping probability range check.")
         return
 
-    model_bundle = joblib.load(MODEL_PATH)
-    model = model_bundle["model"]
-    scaler = model_bundle["scaler"]
+    try:
+        model_bundle = joblib.load(MODEL_PATH)
+        model = model_bundle["model"]
+        scaler = model_bundle["scaler"]
+    except Exception as e:
+        raise RuntimeError(f"❌ Failed to load model: {e}")
 
     X = features_df[[
         "r2", "cup_depth", "cup_duration", "handle_duration",
