@@ -43,6 +43,9 @@ Outputs:
 * `report_ml.csv`: ML-enhanced patterns
 * `.png` charts in `data/market-data/processed/pattern-charts/`
 
+### Screenshot
+![Pattern Screenshot](assets/cup_handle_1.png)
+
 ---
 
 | Path                                                               | Description                                                                                                                           |
@@ -104,8 +107,11 @@ crypto-market-pattern/
 ├── data/
 │   └── market-data/
 │       ├── raw/                # Binance 1m candles
-│       ├── processed/doc/      # Pattern reports
-│       └── model/              # Trained model
+│       ├── patterns/doc/       # Pattern reports
+│       ├── patterns/media/     # Pattern screenshots
+│   └── model/                  # Trained model
+│   └── configuration/          # Config for paths
+├── config/                     # config_loader for fetching config
 ├── detectors/                  # Rule-based pattern logic
 ├── ml/                         # Feature extraction & model training
 ├── config/                     # config.json and loader
