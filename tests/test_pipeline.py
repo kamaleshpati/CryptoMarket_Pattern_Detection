@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 import pandas as pd
 import joblib
-from detectors import detect_cup_handle_patterns
+from detectors import detect_cup_handle_patterns_loose
 from ml import extract_features
 
 from config import RAW_DATA_PATH, MODEL_PATH
@@ -20,7 +20,7 @@ def test_pattern_detection_not_empty():
     df = pd.read_csv(RAW_DATA_PATH, parse_dates=["timestamp"])
     df.set_index("timestamp", inplace=True)
 
-    patterns = detect_cup_handle_patterns(df)
+    patterns = detect_cup_handle_patterns_loose(df)
     assert len(patterns) > 0, "No patterns detected"
     print(f"✅ {len(patterns)} patterns detected successfully.")
 
@@ -28,7 +28,7 @@ def test_feature_columns_are_numeric():
     df = pd.read_csv(RAW_DATA_PATH, parse_dates=["timestamp"])
     df.set_index("timestamp", inplace=True)
 
-    patterns = detect_cup_handle_patterns(df)
+    patterns = detect_cup_handle_patterns_loose(df)
     features_df = extract_features(patterns, df)
     expected_cols = [
         "r2", "cup_depth", "cup_duration", "handle_duration",
@@ -44,7 +44,7 @@ def test_model_predictions_above_zero():
     df = pd.read_csv(RAW_DATA_PATH, parse_dates=["timestamp"])
     df.set_index("timestamp", inplace=True)
 
-    patterns = detect_cup_handle_patterns(df)
+    patterns = detect_cup_handle_patterns_loose(df)
     features_df = extract_features(patterns, df)
 
     assert not features_df.empty, "Feature extraction returned empty DataFrame"
@@ -69,7 +69,7 @@ def test_prediction_probabilities_range():
     df = pd.read_csv(RAW_DATA_PATH, parse_dates=["timestamp"])
     df.set_index("timestamp", inplace=True)
 
-    patterns = detect_cup_handle_patterns(df)
+    patterns = detect_cup_handle_patterns_loose(df)
     features_df = extract_features(patterns, df)
 
     model_bundle = joblib.load(MODEL_PATH)

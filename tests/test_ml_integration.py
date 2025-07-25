@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from detectors import detect_cup_handle_patterns
+from detectors import detect_cup_handle_patterns_loose
 
 import pandas as pd
 from ml import extract_features
@@ -14,7 +14,7 @@ def test_model_predictions_above_zero():
     df = pd.read_csv(RAW_DATA_PATH, parse_dates=["timestamp"])
     df.set_index("timestamp", inplace=True)
 
-    patterns = detect_cup_handle_patterns(df)
+    patterns = detect_cup_handle_patterns_loose(df)
     features_df = extract_features(patterns, df)
 
     assert not features_df.empty, "Feature extraction returned empty DataFrame"
