@@ -211,4 +211,4 @@ from config.config_loader import RAW_DATA_PATH, MODEL_PATH, ...
 ## 🙋‍♂️ Author
 **Kamalesh Pati**
 
-**Feel free to connect on [LinkedIn](https://www.linkedin.com/in/kamaleshpati)**
+**Feel free to connect on [LinkedIn](https://www.linkedin.com/in/kamalesh-pati-j97/)**
