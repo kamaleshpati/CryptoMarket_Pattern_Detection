@@ -1,4 +1,4 @@
-````markdown
+
 # 📊 Crypto Market Pattern Detection (BTCUSDT - Binance 1m)
 
 A hybrid **Rule-Based + Machine Learning** system to detect **Cup & Handle** patterns in crypto market data. Uses Binance 1-minute candles and visualizes detected patterns via a Dash dashboard.
@@ -9,7 +9,7 @@ A hybrid **Rule-Based + Machine Learning** system to detect **Cup & Handle** pat
 
 ### 0️⃣ Install Requirements
 
-*** Create virtual env first ***
+**Create virtual env first & install requirements**
 ```bash
 pip install -r requirements.txt
 ````
