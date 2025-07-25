@@ -11,7 +11,6 @@ from sklearn.preprocessing import StandardScaler
 
 from config import MODEL_PATH, RAW_DATA_PATH
 
-# --- Auto-label function ---
 def auto_label(row, df):
     try:
         cup_start = row["start_time"]
@@ -71,12 +70,10 @@ def update_model_live(df):
         model.partial_fit(X_scaled, y, classes=np.array([0, 1]))
         print("🆕 Trained new incremental model.")
 
-    # --- Save model ---
     os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
     joblib.dump({"model": model, "scaler": scaler}, MODEL_PATH)
     print(f"💾 Model updated and saved to: {MODEL_PATH}")
 
-# --- Example entrypoint ---
 if __name__ == "__main__":
     df = pd.read_csv(RAW_DATA_PATH, parse_dates=["timestamp"])
     df.set_index("timestamp", inplace=True)

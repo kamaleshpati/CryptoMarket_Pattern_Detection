@@ -33,7 +33,7 @@ if os.path.exists(ML_REPORT_PATH) and os.path.getsize(ML_REPORT_PATH) > 0:
     except pd.errors.EmptyDataError:
         print(f"⚠️ Warning: {ML_REPORT_PATH} exists but is empty.")
 
-# === Dash App Setup ===
+# === Dash Web App Setup ===
 app = dash.Dash(__name__)
 app.title = "Crypto Binance Cup & Handle Visualizer"
 
@@ -56,7 +56,7 @@ app.layout = html.Div([
     dcc.Graph(id='chart', config={"displayModeBar": True}),
 ])
 
-# === Date Navigation Callback ===
+# === Date Callback ===
 @app.callback(
     Output("date-picker", "date"),
     Input("prev-day", "n_clicks"),

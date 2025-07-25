@@ -28,7 +28,7 @@ def train_incremental():
     X = df[feature_cols]
     y = df["label"]
 
-    # Train/test split
+    # Train split
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.25, stratify=y, random_state=42
     )
@@ -71,7 +71,6 @@ def train_incremental():
     else:
         print("⚠️ ROC-AUC cannot be computed — only one class in y_test.")
 
-    # Save updated model
     os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
     joblib.dump({"model": model, "scaler": scaler}, MODEL_PATH)
     print(f"\n💾 Updated incremental model saved to: {MODEL_PATH}")
