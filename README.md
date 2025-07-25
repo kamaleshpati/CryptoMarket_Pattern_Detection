@@ -16,6 +16,7 @@ pip install -r requirements.txt
 
 ⚠️ Note: Make sure you're using Python 3.9+ 
 
+---
 
 This installs all necessary libraries for:
 
