@@ -1,11 +1,11 @@
 import os
 import pandas as pd
 import joblib
+import argparse
 
 from detectors import detect_cup_handle_patterns_loose
 from ml import extract_features, train_incremental
 from utils import plot_and_save_pattern
-# from app import run_server 
 from config import (
     RAW_DATA_PATH, OUTPUT_DIR, FEATURE_PATH, RULE_REPORT_PATH,
     ML_REPORT_PATH, MODEL_PATH, CONFIDENCE_THRESHOLD, MIN_VALID_PATTERNS
@@ -27,7 +27,7 @@ def auto_label(row, df):
     except Exception:
         return 0
 
-def main():
+def run_detection_pipeline():
     df = pd.read_csv(RAW_DATA_PATH, parse_dates=["timestamp"])
     df.set_index("timestamp", inplace=True)
 
@@ -145,5 +145,22 @@ def main():
     # Step 11: Launch Dashboard (do it separately , as it might  start without processing too)
     # run_server()
 
+
+def run_ml_training():
+    print("🧠 Manually triggering model training...")
+    train_incremental()
+    print("✅ Model trained.")
+
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Run pattern detection or ML training")
+    parser.add_argument("--detect-only", action="store_true", help="Run detection pipeline only")
+    parser.add_argument("--train-ml", action="store_true", help="Train model only (no detection)")
+
+    args = parser.parse_args()
+
+    if args.train_ml:
+        run_ml_training()
+    elif args.detect_only:
+        run_detection_pipeline()
+    else:
+        print("ℹ️ Please provide a flag: --detect-only or --train-ml")

@@ -7,6 +7,30 @@ A hybrid **Rule-Based + Machine Learning** system to detect **Cup & Handle** pat
 
 ## 🚀 Getting Started
 
+### 0️⃣ Install Requirements
+
+*** Create virtual env first ***
+```bash
+pip install -r requirements.txt
+````
+
+⚠️ Note: Make sure you're using Python 3.9+ 
+---
+
+This installs all necessary libraries for:
+
+* Rule-based pattern detection (pandas, numpy, ta-lib, etc.)
+
+* ML model training (scikit-learn, joblib)
+
+* Visualization (plotly, matplotlib, kaleido)
+
+* Dashboard (dash)
+
+* Testing (pytest)
+
+---
+
 ### 1️⃣ Download & Merge Binance Data
 
 ```bash
@@ -25,7 +49,7 @@ data/market-data/raw/binance_1m.csv
 ### 2️⃣ Run the Detection + ML Pipeline
 
 ```bash
-python main.py
+python main.py --detect-only
 ```
 
 Performs:
@@ -46,6 +70,19 @@ Outputs:
 ### Screenshot
 ![Pattern Screenshot](assets/cup_handle_1.png)
 
+---
+
+### 🤖 Train or Retrain the ML Model only
+
+```bash
+
+python main.py --train-ml
+
+```
+This will:
+
+* Retrain the ML model using features in pattern_features_for_labeling.csv
+* Save the updated model to pattern_sgd_model.pkl
 ---
 
 | Path                                                               | Description                                                                                                                           |
