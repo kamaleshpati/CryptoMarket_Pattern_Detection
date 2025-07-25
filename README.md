@@ -193,6 +193,8 @@ from config.config_loader import RAW_DATA_PATH, MODEL_PATH, ...
 ## 🔬 ML Model Challenges and Improvements
 * Small Dataset: Currently <200 labeled patterns after filtering. Need more samples for generalization.
 
+* Detection Not Parallelized: Detection currently runs sequentially. Multiprocessing not yet implemented due to time constraints. Can improve speed on large datasets.
+
 * Class Imbalance: Label 1 (valid pattern) underrepresented. Add class_weight="balanced" or oversample.
 
 * Strict Auto-labeling: May label only "perfect" patterns due to high R², low retrace, etc. Loosen thresholds slightly.

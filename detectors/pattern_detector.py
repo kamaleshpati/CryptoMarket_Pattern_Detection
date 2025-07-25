@@ -13,6 +13,8 @@ def calculate_atr(df, period=14):
     atr = tr.rolling(window=period).mean()
     return atr
 
+# Strict pattern detection, here some fields are too much costly to cal 
+# and also cause invalid patterns , whihc will make code runn too long
 def detect_cup_handle_patterns(df: pd.DataFrame) -> List[dict]:
     df = df.copy()
     df["atr"] = calculate_atr(df)
@@ -200,10 +202,7 @@ def detect_cup_handle_patterns(df: pd.DataFrame) -> List[dict]:
                     "end_time": df.index[i],
                     "valid": False,
                     "invalid_reason": f"Exception: {str(e)}"
-                })
-
-            
-
+                }) 
     return results
 
 def detect_cup_handle_patterns_loose(df: pd.DataFrame) -> list:
@@ -345,6 +344,7 @@ def detect_cup_handle_patterns_loose(df: pd.DataFrame) -> list:
                     "handle_high": float(handle_high),
                     "handle_low": float(handle_low),
                     "r2": float(r2),
+                    "handle_retrace_ratio": float(retrace),
                     "breakout_time": df.index[i],
                     "breakout_volume": float(breakout_candle['volume']),
                     "volume_slope": float(vol_slope),
