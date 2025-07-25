@@ -6,7 +6,7 @@ from detectors.pattern_detector import detect_cup_handle_patterns_loose
 from ml.ml_feature_extractor import extract_features
 from ml.train_model import train_incremental  
 from visual_utils.plot_utils import plot_and_save_pattern
-from app import run_server 
+# from app import run_server 
 
 RAW_DATA_PATH = "data/market-data/raw/binance_1m.csv"
 OUTPUT_DIR = "data/market-data/processed/media"
@@ -106,7 +106,7 @@ def main():
     pd.DataFrame(patterns).to_csv(REPORT_ML_PATH, index=False)
     print(f"📄 ML-enhanced report saved: {REPORT_ML_PATH}")
 
-    # Step 9: Plot ML-Valid Patterns Only
+    # Step 9: Plot ML-Valid and Valid Patterns Only
     ml_patterns = [p for p in patterns if p.get("ml_valid")]
     print(f"📈 {len(ml_patterns)} ML-valid patterns found (confidence >= {CONFIDENCE_THRESHOLD})")
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -123,14 +123,21 @@ def main():
     print(f"📸 Saved {len(ml_patterns)} ML-validated pattern plots.")
 
     for i, pattern in enumerate(patterns):
-        required_keys = ["cup_duration", "handle_duration", "start_time", "end_time"]
-        if not all(k in pattern for k in required_keys):
-            print(f"⚠️ Skipping pattern {i+1}: missing required keys")
-            continue
+        if pattern["valid"]:
+            required_keys = ["cup_duration", "handle_duration", "start_time", "end_time"]
+            if not all(k in pattern for k in required_keys):
+                print(f"⚠️ Skipping pattern {i+1}: missing required keys")
+                continue
 
-        filename = f"cup_handle_{i+1}.png"
-        save_path = os.path.join(OUTPUT_DIR, filename)
-        plot_and_save_pattern(df, pattern, save_path)
+            print(f"{i+1}. From {pattern['start_time']} to {pattern['end_time']} | "
+                  f"Depth: {pattern['cup_depth']:.2f} | R²: {pattern['r2']:.2f} | "
+                  f"Breakout: {pattern['breakout_time']}")
+
+            filename = f"cup_handle_{i+1}.png"
+            save_path = os.path.join(OUTPUT_DIR, filename)
+            plot_and_save_pattern(df, pattern, save_path)
+        else:
+            pass
 
     print(f"📸 Saved {len(patterns)} Lib-validated pattern plots.")
 
@@ -141,8 +148,8 @@ def main():
     else:
         print("🚫 Skipping model training (using pretrained fallback).")
 
-    # Step 11: Launch Dashboard
-    run_server()
+    # Step 11: Launch Dashboard (do it separately , as it might  start without processing too)
+    # run_server()
 
 if __name__ == "__main__":
     main()

@@ -247,7 +247,7 @@ def detect_cup_handle_patterns_loose(df: pd.DataFrame) -> list:
             try:
                 cup_closes = closes[cup_start:cup_end]
                 x = np.arange(len(cup_closes))
-                popt, r2, y_fit = fit_parabola_xy(x, cup_closes)
+                popt, r2, y_fit = fit_parabola(x, cup_closes)
                 if r2 < 0.85 or popt[0] <= 0:
                     results.append({
                         "start_time": df.index[cup_start],
@@ -281,7 +281,7 @@ def detect_cup_handle_patterns_loose(df: pd.DataFrame) -> list:
                     })
                     continue
 
-                # Volume trend 
+                # Volume trend check
                 vol_slope, *_ = linregress(np.arange(len(volumes[cup_start:cup_end])), volumes[cup_start:cup_end])
                 if vol_slope > 0:
                     results.append({
@@ -354,6 +354,7 @@ def detect_cup_handle_patterns_loose(df: pd.DataFrame) -> list:
                     })
                     continue
 
+                # If all checks pass: VALID
                 results.append({
                     "start_time": df.index[cup_start],
                     "end_time": df.index[i],
@@ -380,7 +381,7 @@ def detect_cup_handle_patterns_loose(df: pd.DataFrame) -> list:
                     "valid": False,
                     "invalid_reason": f"Exception: {str(e)}"
                 })
-            print(f"{counter} Pattern detected from {df.index[cup_start]} to {df.index[i]}")
+            print(f"{counter} ✅  Pattern detected from {df.index[cup_start]} to {df.index[i]}")
             counter += 1
 
     return results
